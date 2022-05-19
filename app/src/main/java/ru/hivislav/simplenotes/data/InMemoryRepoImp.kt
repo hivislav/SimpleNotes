@@ -5,7 +5,7 @@ object InMemoryRepoImp: Repository {
     private val notes: MutableList<Note> = ArrayList()
     private var counter: Int = 0
 
-     fun init() {
+     private fun init() {
         create(Note("Title 1", "Description 1", "default"))
         create(Note("Title 2", "Description 2", "default"))
         create(Note("Title 3", "Description 3", "default"))

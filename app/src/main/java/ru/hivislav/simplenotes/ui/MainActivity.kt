@@ -12,7 +12,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_notes_list_container ,NotesListFragment(), LIST_FRAGMENT)
@@ -25,6 +24,5 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         const val LIST_FRAGMENT = "LIST_FRAGMENT"
-        const val EDIT_NOTE: String = "EDIT_NOTE"
     }
 }
