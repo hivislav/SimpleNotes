@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.hivislav.simplenotes.R
 import ru.hivislav.simplenotes.data.Note
 
-class NotesAdapter: RecyclerView.Adapter<NotesAdapter.NoteHolder>() {
+class NotesAdapter(private var onNoteClickListener: NotesListFragment.OnNoteClickListener?):
+                                                RecyclerView.Adapter<NotesAdapter.NoteHolder>() {
     private var notes: List<Note> = listOf()
 
     fun setNotes(notes: List<Note>){
@@ -23,8 +24,11 @@ class NotesAdapter: RecyclerView.Adapter<NotesAdapter.NoteHolder>() {
                 findViewById<TextView>(R.id.note_title).text = note.title
                 findViewById<TextView>(R.id.note_description).text = note.description
                 findViewById<TextView>(R.id.note_date).text = note.date
-            }
 
+                setOnClickListener {
+                    onNoteClickListener?.onNoteClick(note)
+                }
+            }
         }
     }
 
