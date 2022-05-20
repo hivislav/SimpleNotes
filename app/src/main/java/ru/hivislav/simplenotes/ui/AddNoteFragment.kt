@@ -12,17 +12,15 @@ import ru.hivislav.simplenotes.data.Note
 import ru.hivislav.simplenotes.data.Repository
 import ru.hivislav.simplenotes.databinding.FragmentEditNoteBinding
 
-class EditNoteFragment : Fragment() {
+class AddNoteFragment : Fragment() {
 
     private var _binding: FragmentEditNoteBinding? = null
     private val binding get() = _binding!!
 
     private val repository: Repository = InMemoryRepoImp
-    private var noteId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
         _binding = FragmentEditNoteBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -30,14 +28,6 @@ class EditNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val note = arguments?.getParcelable<Note>(EDIT_NOTE)
-
-        note?.also {
-            set_title.setText(it.title)
-            set_description.setText(it.description)
-            set_date.text = it.date
-            noteId = note.id
-        }
     }
 
     override fun onDestroyView() {
@@ -47,17 +37,17 @@ class EditNoteFragment : Fragment() {
     }
 
     private fun saveNote() {
-        val editNote: Note = Note(noteId, set_title.text.toString(), set_description.text.toString(), set_date.text.toString())
-        repository.update(editNote)
+        val newNote: Note = Note(set_title.text.toString(), set_description.text.toString(), set_date.text.toString())
+        if (!(set_title.text.toString() == "" && set_description.text.toString() == "")) {
+            repository.create(newNote)
+        }
     }
 
     companion object {
-        const val EDIT_NOTE: String = "EDIT_NOTE"
+        const val ADD_NOTE: String  = "ADD_NOTE"
 
-        fun getInstance(bundle: Bundle): EditNoteFragment {
-            val fragment = EditNoteFragment()
-            fragment.arguments = bundle
-            return fragment
+        fun newInstance(): AddNoteFragment {
+            return AddNoteFragment()
         }
     }
 }

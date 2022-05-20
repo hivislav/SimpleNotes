@@ -29,7 +29,6 @@ class NotesAdapter(private var onNoteClickListener: NotesListFragment.OnNoteClic
                     onNoteClickListener?.onNoteClick(note)
                 }
             }
-
         }
     }
 

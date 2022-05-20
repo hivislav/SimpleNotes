@@ -58,7 +58,9 @@ object InMemoryRepoImp: Repository {
     }
 
     override fun getAll(): List<Note> {
-        init()
+        if (notes.isEmpty()) {
+            init()
+        }
         return notes
     }
 }
